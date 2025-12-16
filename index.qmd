@@ -1,0 +1,100 @@
+---
+title: Kreuzungschema
+format: html
+---
+
+
+
+```{ojs}
+//| eval: true
+//| echo: false
+//| output: false
+//| results: hide
+
+function makeGametes(parent) {
+    return parent.split("");
+}
+
+function crossParents(parent1, parent2) {
+    let gametes1 = makeGametes(parent1);
+    let gametes2 = makeGametes(parent2);
+    let offspring = Array.from(
+        {length: gametes1.length * gametes2.length},
+        () => ({
+            gamete1: null,
+            gamete2: null,
+            offspring: null
+        })
+    );
+    let offspringIndex = 0;
+    for (let index1 = 0; index1 < gametes1.length; index1++) {
+        for (let index2 = 0; index2 < gametes2.length; index2++) {
+            offspring[offspringIndex] = {
+                gamete1: gametes1[index1],
+                gamete2: gametes2[index2],
+                offspring: gametes1[index1] + gametes2[index2]
+            };
+            offspringIndex++;
+        }       
+    }
+    return offspring;
+}
+
+```
+
+```{ojs}
+//| output: true
+//| echo: false
+
+viewof parent1 = Inputs.text({
+    label: "Allele des Elternteils1",
+    value: "Aa",
+    placeholder: "Gib hier Allele ein",
+    spellcheck: false,
+    pattern: "[a-zA-Z]{2}",
+    minlength: 2,
+maxlength: 2,
+requirment: true
+})
+```
+
+```{ojs}
+//| output: true
+//| echo: false
+
+viewof parent2 = Inputs.text({
+    label: "Allele des Elternteils2",
+    value: "Aa",
+    placeholder: "Gib hier Allele ein",
+    spellcheck: false,
+    pattern: "[a-zA-Z]{2}",
+    minlength: 2,
+maxlength: 2,
+requirment: true
+})
+```
+
+```{ojs}
+//|output: true
+//|echo: false
+
+gametes1 = makeGametes(parent1);
+gametes1
+
+```
+
+```{ojs}
+//|output: true
+//|echo: false
+
+gametes2 = makeGametes(parent2);
+gametes2
+
+```
+
+```{ojs}
+//|output: true 
+//|echo: false
+offspring = crossParents(parent1, parent2);
+offspring
+```
