@@ -1,655 +1,919 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnQuest - Modern Learning Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-color: #4caf50;
+            --error-color: #f44336;
+            --warning-color: #ffc107;
+        }
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        /* ===== LIGHT MODE ===== */
+        body.light-mode {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
 
+        /* ===== DARK MODE ===== */
+        body.dark-mode {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #1a1f3a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(26, 31, 58, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, #0f0f1e 0%, #2a2a5a 100%);
+        }
 
-<title>Kreuzungschema</title>
-<style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-  vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-</style>
+        body {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
 
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1.5em;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="index_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-f065dbef5de9e78dd95f9b1c10232329.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script type="module" src="index_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
-<link href="index_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
 
+        .container {
+            width: 100%;
+            max-width: 950px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px);
+            border: 2px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== SCREENS ===== */
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* ===== START SCREEN ===== */
+        .start-screen h1 {
+            font-size: 4em;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 15px;
+            animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) rotateY(180deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotateY(0deg);
+            }
+        }
+
+        .start-screen p {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.2em;
+            margin-bottom: 60px;
+            font-weight: 500;
+        }
+
+        .emoji-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            font-size: 3em;
+        }
+
+        .emoji-item {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .emoji-item:nth-child(1) { animation-delay: 0s; }
+        .emoji-item:nth-child(2) { animation-delay: 0.2s; }
+        .emoji-item:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+            50% { transform: translateY(-25px) rotateZ(5deg); }
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 16px 45px;
+            margin: 10px;
+            font-size: 1.1em;
+            font-weight: 700;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(102, 126, 234, 0.4);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-secondary {
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            transform: translateY(-3px);
+            border-color: var(--text-primary);
+        }
+
+        .btn-subject {
+            width: 100%;
+            padding: 25px;
+            margin: 15px 0;
+            font-size: 1.4em;
+            text-align: left;
+            font-weight: 600;
+            background: var(--glass-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .btn-subject:hover {
+            background: var(--bg-secondary);
+            border-color: var(--text-primary);
+            transform: translateX(12px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-topic {
+            width: 100%;
+            padding: 16px;
+            margin: 10px 0;
+            background: var(--glass-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 18px;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-topic:hover {
+            background: var(--bg-secondary);
+            border-color: var(--text-primary);
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-answer {
+            width: 100%;
+            padding: 16px;
+            margin: 10px 0;
+            background: var(--glass-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 18px;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .btn-answer:hover {
+            background: var(--bg-secondary);
+            border-color: var(--text-primary);
+            transform: translateX(8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-answer.selected {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-answer.correct {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: #4caf50;
+            color: #4caf50;
+            animation: correctAnswer 0.6s ease;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-answer.incorrect {
+            background: rgba(244, 67, 54, 0.2);
+            border-color: #f44336;
+            color: #f44336;
+            animation: shake 0.5s ease;
+            box-shadow: 0 0 20px rgba(244, 67, 54, 0.4);
+        }
+
+        @keyframes correctAnswer {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* ===== HEADINGS ===== */
+        .screen h2 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== QUIZ SCREEN ===== */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: var(--glass-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .quiz-progress {
+            color: var(--text-primary);
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .timer {
+            font-size: 2.2em;
+            font-weight: 900;
+            padding: 12px 28px;
+            border-radius: 50px;
+            background: var(--glass-bg);
+            border: 3px solid var(--border-color);
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .timer.green {
+            color: #4caf50;
+            border-color: #4caf50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .timer.yellow {
+            color: #ffc107;
+            border-color: #ffc107;
+            background: rgba(255, 193, 7, 0.1);
+            animation: pulse 0.8s infinite;
+        }
+
+        .timer.red {
+            color: #f44336;
+            border-color: #f44336;
+            background: rgba(244, 67, 54, 0.1);
+            animation: pulse 0.4s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .question-container {
+            background: var(--glass-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(20px);
+        }
+
+        .question-text {
+            color: var(--text-primary);
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 35px;
+            line-height: 1.8;
+        }
+
+        .answers-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* ===== RESULT SCREEN ===== */
+        .result-container {
+            text-align: center;
+        }
+
+        .result-title {
+            font-size: 2.8em;
+            margin: 30px 0;
+            font-weight: 800;
+            animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .result-emoji {
+            font-size: 5em;
+            margin: 40px 0;
+            animation: bounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0) translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .stars {
+            font-size: 4.5em;
+            margin: 35px 0;
+            letter-spacing: 20px;
+            animation: starBurst 0.8s ease;
+        }
+
+        .star {
+            display: inline-block;
+            animation: starPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .star:nth-child(1) { animation-delay: 0s; }
+        .star:nth-child(2) { animation-delay: 0.2s; }
+        .star:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes starPop {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-180deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes starBurst {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        .result-stats {
+            background: var(--glass-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            padding: 35px;
+            margin: 35px 0;
+        }
+
+        .result-stat {
+            font-size: 1.3em;
+            margin: 18px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .result-stat-value {
+            font-size: 1.6em;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-gradient);
+            border-radius: 10px;
+            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            .start-screen h1 {
+                font-size: 2.8em;
+            }
+
+            .quiz-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .stats-container {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .timer {
+                font-size: 1.8em;
+            }
+
+            .question-text {
+                font-size: 1.3em;
+            }
+
+            .question-container {
+                padding: 25px;
+            }
+
+            .result-title {
+                font-size: 2.2em;
+            }
+
+            .stars {
+                font-size: 3.5em;
+                letter-spacing: 12px;
+            }
+
+            .btn {
+                padding: 14px 35px;
+                font-size: 1em;
+            }
+        }
+
+        .achievement-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 2.5em;
+            margin: 15px 10px;
+            animation: rotate 10s linear infinite;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        @keyframes rotate {
+            0% { transform: rotateZ(0deg); }
+            100% { transform: rotateZ(360deg); }
+        }
+
+        .feedback-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1.1em;
+            animation: slideInUp 0.5s ease;
+        }
+
+        .feedback-correct {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+            border: 2px solid #4caf50;
+        }
+
+        .feedback-incorrect {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 2px solid #f44336;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .back-btn {
+            margin-top: 30px;
+        }
+
+        .next-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        #nextBtn {
+            display: none;
+        }
+
+        #nextBtn.show {
+            display: inline-block;
+        }
+    </style>
 </head>
+<body class="dark-mode">
+    <!-- THEME TOGGLE -->
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
 
-<body class="fullcontent quarto-light">
+    <div class="container">
+        <!-- ===== START SCREEN ===== -->
+        <div class="screen active" id="startScreen">
+            <h1>🎓 LearnQuest</h1>
+            <p>Lerne mit modernem Design und Spaß! Teste dein Wissen in verschiedenen Fächern.</p>
+            <div class="emoji-group">
+                <span class="emoji-item">📚</span>
+                <span class="emoji-item">✨</span>
+                <span class="emoji-item">🚀</span>
+            </div>
+            <div class="button-group" style="justify-content: center;">
+                <button class="btn btn-primary" onclick="goToSubjectSelection()">🚀 Jetzt starten!</button>
+            </div>
+        </div>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+        <!-- ===== SUBJECT SELECTION SCREEN ===== -->
+        <div class="screen" id="subjectScreen">
+            <h2>📚 Wähle dein Fach</h2>
+            <button class="btn-subject" onclick="selectSubject('mathe')">🧮 Mathematik</button>
+            <button class="btn-subject" onclick="selectSubject('englisch')">🌍 Englisch</button>
+            <button class="btn-subject" onclick="selectSubject('geschichte')">🏛️ Geschichte</button>
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goToStart()">← Zurück</button>
+            </div>
+        </div>
 
-<main class="content" id="quarto-document-content">
+        <!-- ===== TOPIC SELECTION SCREEN ===== -->
+        <div class="screen" id="topicScreen">
+            <h2 id="topicScreenTitle"></h2>
+            <div id="topicButtonsContainer"></div>
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goToSubjectSelection()">← Zurück</button>
+            </div>
+        </div>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Kreuzungschema</h1>
-</div>
+        <!-- ===== QUIZ SCREEN ===== -->
+        <div class="screen" id="quizScreen">
+            <div class="quiz-header">
+                <div class="quiz-progress">
+                    <span id="currentQuestion">1</span> / <span id="totalQuestions">15</span>
+                </div>
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="stat-value" id="xpDisplay">0</div>
+                        <div class="stat-label">⚡ XP</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="streakDisplay">0</div>
+                        <div class="stat-label">🔥 Streak</div>
+                    </div>
+                </div>
+                <div class="timer" id="timer">30s</div>
+            </div>
+            <div class="question-container">
+                <div class="question-text" id="questionText"></div>
+                <div class="answers-container" id="answersContainer"></div>
+                <div id="feedbackMessage"></div>
+            </div>
+            <div class="next-btn-container">
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Weiter →</button>
+            </div>
+        </div>
 
+        <!-- ===== RESULT SCREEN ===== -->
+        <div class="screen" id="resultScreen">
+            <div class="result-container">
+                <h2>🎉 Quiz abgeschlossen!</h2>
+                <div class="result-emoji" id="resultEmoji">🎊</div>
+                <div class="result-title" id="resultTitle">Hervorragend!</div>
+                <div class="stars" id="starsContainer"></div>
+                <div class="result-stats">
+                    <div class="result-stat">
+                        <span>✅ Richtig beantwortet:</span>
+                        <span class="result-stat-value" id="resultCorrect">0</span>
+                    </div>
+                    <div class="result-stat">
+                        <span>⚡ Punkte erhalten:</span>
+                        <span class="result-stat-value" id="resultPoints">0</span>
+                    </div>
+                    <div class="result-stat">
+                        <span>📊 Erfolgsquote:</span>
+                        <span class="result-stat-value" id="resultPercentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+                <div id="achievementBadges"></div>
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="goToStart()">← Zur Startseite</button>
+                    <button class="btn btn-secondary" onclick="goToSubjectSelection()">🔄 Anderes Fach</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div class="cell hidden" data-eval="true" data-results="hide">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="14" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 13;"><span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">makeGametes</span>(parent) {</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> parent<span class="op">.</span><span class="fu">split</span>(<span class="st">""</span>)<span class="op">;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">crossParents</span>(parent1<span class="op">,</span> parent2) {</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> gametes1 <span class="op">=</span> <span class="fu">makeGametes</span>(parent1)<span class="op">;</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> gametes2 <span class="op">=</span> <span class="fu">makeGametes</span>(parent2)<span class="op">;</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> offspring <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        {<span class="dt">length</span><span class="op">:</span> gametes1<span class="op">.</span><span class="at">length</span> <span class="op">*</span> gametes2<span class="op">.</span><span class="at">length</span>}<span class="op">,</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        () <span class="kw">=&gt;</span> ({</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>            <span class="dt">gamete1</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>            <span class="dt">gamete2</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>            <span class="dt">offspring</span><span class="op">:</span> <span class="kw">null</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        })</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> offspringIndex <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> index1 <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> index1 <span class="op">&lt;</span> gametes1<span class="op">.</span><span class="at">length</span><span class="op">;</span> index1<span class="op">++</span>) {</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> (<span class="kw">let</span> index2 <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> index2 <span class="op">&lt;</span> gametes2<span class="op">.</span><span class="at">length</span><span class="op">;</span> index2<span class="op">++</span>) {</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>            offspring[offspringIndex] <span class="op">=</span> {</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>                <span class="dt">gamete1</span><span class="op">:</span> gametes1[index1]<span class="op">,</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                <span class="dt">gamete2</span><span class="op">:</span> gametes2[index2]<span class="op">,</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>                <span class="dt">offspring</span><span class="op">:</span> gametes1[index1] <span class="op">+</span> gametes2[index2]</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>            }<span class="op">;</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>            offspringIndex<span class="op">++;</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        }       </span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> offspring<span class="op">;</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display hidden">
-<div>
-<div id="ojs-cell-1-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display hidden">
-<div>
-<div id="ojs-cell-1-2" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="47" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 46;"><span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>viewof parent1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>({</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"Allele des Elternteils1"</span><span class="op">,</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="st">"Aa"</span><span class="op">,</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    <span class="dt">placeholder</span><span class="op">:</span> <span class="st">"Gib hier Allele ein"</span><span class="op">,</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    <span class="dt">spellcheck</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pattern</span><span class="op">:</span> <span class="st">"[a-zA-Z]{2}"</span><span class="op">,</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    <span class="dt">minlength</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="dt">maxlength</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="dt">requirment</span><span class="op">:</span> <span class="kw">true</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div id="ojs-cell-2" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="63" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 62;"><span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>viewof parent2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>({</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"Allele des Elternteils2"</span><span class="op">,</span></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="st">"Aa"</span><span class="op">,</span></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>    <span class="dt">placeholder</span><span class="op">:</span> <span class="st">"Gib hier Allele ein"</span><span class="op">,</span></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>    <span class="dt">spellcheck</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pattern</span><span class="op">:</span> <span class="st">"[a-zA-Z]{2}"</span><span class="op">,</span></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>    <span class="dt">minlength</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="dt">maxlength</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="dt">requirment</span><span class="op">:</span> <span class="kw">true</span></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div id="ojs-cell-3" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="81" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 80;"><span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>gametes1 <span class="op">=</span> <span class="fu">makeGametes</span>(parent1)<span class="op">;</span></span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>gametes1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-4-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-4-2" data-nodetype="expression">
-
-</div>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="90" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 89;"><span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>gametes2 <span class="op">=</span> <span class="fu">makeGametes</span>(parent2)<span class="op">;</span></span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>gametes2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-5-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-5-2" data-nodetype="expression">
-
-</div>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="98" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 97;"><span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>offspring <span class="op">=</span> <span class="fu">crossParents</span>(parent1<span class="op">,</span> parent2)<span class="op">;</span></span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>offspring</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-6-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-6-2" data-nodetype="expression">
-
-</div>
-</div>
-</div>
-</div>
-
-</main>
-<!-- /main column -->
-<script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuZnVuY3Rpb24gbWFrZUdhbWV0ZXMocGFyZW50KSB7XG4gICAgcmV0dXJuIHBhcmVudC5zcGxpdChcIlwiKTtcbn1cblxuZnVuY3Rpb24gY3Jvc3NQYXJlbnRzKHBhcmVudDEsIHBhcmVudDIpIHtcbiAgICBsZXQgZ2FtZXRlczEgPSBtYWtlR2FtZXRlcyhwYXJlbnQxKTtcbiAgICBsZXQgZ2FtZXRlczIgPSBtYWtlR2FtZXRlcyhwYXJlbnQyKTtcbiAgICBsZXQgb2Zmc3ByaW5nID0gQXJyYXkuZnJvbShcbiAgICAgICAge2xlbmd0aDogZ2FtZXRlczEubGVuZ3RoICogZ2FtZXRlczIubGVuZ3RofSxcbiAgICAgICAgKCkgPT4gKHtcbiAgICAgICAgICAgIGdhbWV0ZTE6IG51bGwsXG4gICAgICAgICAgICBnYW1ldGUyOiBudWxsLFxuICAgICAgICAgICAgb2Zmc3ByaW5nOiBudWxsXG4gICAgICAgIH0pXG4gICAgKTtcbiAgICBsZXQgb2Zmc3ByaW5nSW5kZXggPSAwO1xuICAgIGZvciAobGV0IGluZGV4MSA9IDA7IGluZGV4MSA8IGdhbWV0ZXMxLmxlbmd0aDsgaW5kZXgxKyspIHtcbiAgICAgICAgZm9yIChsZXQgaW5kZXgyID0gMDsgaW5kZXgyIDwgZ2FtZXRlczIubGVuZ3RoOyBpbmRleDIrKykge1xuICAgICAgICAgICAgb2Zmc3ByaW5nW29mZnNwcmluZ0luZGV4XSA9IHtcbiAgICAgICAgICAgICAgICBnYW1ldGUxOiBnYW1ldGVzMVtpbmRleDFdLFxuICAgICAgICAgICAgICAgIGdhbWV0ZTI6IGdhbWV0ZXMyW2luZGV4Ml0sXG4gICAgICAgICAgICAgICAgb2Zmc3ByaW5nOiBnYW1ldGVzMVtpbmRleDFdICsgZ2FtZXRlczJbaW5kZXgyXVxuICAgICAgICAgICAgfTtcbiAgICAgICAgICAgIG9mZnNwcmluZ0luZGV4Kys7XG4gICAgICAgIH0gICAgICAgXG4gICAgfVxuICAgIHJldHVybiBvZmZzcHJpbmc7XG59XG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxudmlld29mIHBhcmVudDEgPSBJbnB1dHMudGV4dCh7XG4gICAgbGFiZWw6IFwiQWxsZWxlIGRlcyBFbHRlcm50ZWlsczFcIixcbiAgICB2YWx1ZTogXCJBYVwiLFxuICAgIHBsYWNlaG9sZGVyOiBcIkdpYiBoaWVyIEFsbGVsZSBlaW5cIixcbiAgICBzcGVsbGNoZWNrOiBmYWxzZSxcbiAgICBwYXR0ZXJuOiBcIlthLXpBLVpdezJ9XCIsXG4gICAgbWlubGVuZ3RoOiAyLFxubWF4bGVuZ3RoOiAyLFxucmVxdWlybWVudDogdHJ1ZVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxudmlld29mIHBhcmVudDIgPSBJbnB1dHMudGV4dCh7XG4gICAgbGFiZWw6IFwiQWxsZWxlIGRlcyBFbHRlcm50ZWlsczJcIixcbiAgICB2YWx1ZTogXCJBYVwiLFxuICAgIHBsYWNlaG9sZGVyOiBcIkdpYiBoaWVyIEFsbGVsZSBlaW5cIixcbiAgICBzcGVsbGNoZWNrOiBmYWxzZSxcbiAgICBwYXR0ZXJuOiBcIlthLXpBLVpdezJ9XCIsXG4gICAgbWlubGVuZ3RoOiAyLFxubWF4bGVuZ3RoOiAyLFxucmVxdWlybWVudDogdHJ1ZVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuZ2FtZXRlczEgPSBtYWtlR2FtZXRlcyhwYXJlbnQxKTtcbmdhbWV0ZXMxXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuZ2FtZXRlczIgPSBtYWtlR2FtZXRlcyhwYXJlbnQyKTtcbmdhbWV0ZXMyXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Im9mZnNwcmluZyA9IGNyb3NzUGFyZW50cyhwYXJlbnQxLCBwYXJlbnQyKTtcbm9mZnNwcmluZ1xuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdwYXJlbnQxJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3BhcmVudDInKSJ9XX0=
-</script>
-<script type="module">
-if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../../..";
-window._ojs.paths.runtimeToRoot = "../../..";
-window._ojs.paths.docToRoot = "";
-window._ojs.selfContained = false;
-window._ojs.runtime.interpretFromScriptTags();
-</script>
-<script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
-        }
-      }
-      return false;
-    }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
-    }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
-    });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
-    }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
-        }
-      }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
-    }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
-    }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
-      } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
-      }
-    }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
-          }
-        } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
-            if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
-      } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
-        });
-      }
-    }
-  });
-  </script>
-</div> <!-- /content -->
-
-
-
-
-</body></html>
+    <script>
+        // ===== QUIZ DATA =====
+        const quizData = {
+            mathe: {
+                'Quadratische Funktionen': [
+                    { question: 'Welche ist die Scheitelpunktform einer quadratischen Funktion?', answers: ['y = ax² + bx + c', 'y = a(x - h)² + k', 'y = ax + b', 'y = mx²'], correct: 1 },
+                    { question: 'Der Scheitelpunkt der Funktion f(x) = (x - 2)² + 3 ist...?', answers: ['(2, 3)', '(-2, 3)', '(2, -3)', '(-2, -3)'], correct: 0 },
+                    { question: 'Wie viele Nullstellen kann eine quadratische Funktion maximal haben?', answers: ['1', '2', '3', '4'], correct: 1 },
+                    { question: 'Was ist das Symbol a in y = a(x - h)² + k?', answers: ['Die Verschiebung nach rechts', 'Die Streckung/Stauchung und Öffnungsrichtung', 'Die Verschiebung nach oben', 'Die Nullstelle'], correct: 1 },
+                    { question: 'Die Parabel y = -2x² ist nach... geöffnet?', answers: ['oben', 'unten', 'links', 'rechts'], correct: 1 },
+                    { question: 'Welche Funktion hat einen Scheitelpunkt bei (0, 0)?', answers: ['y = x² + 1', 'y = (x - 1)²', 'y = x²', 'y = x² - 1'], correct: 2 },
+                    { question: 'Wie lautet die pq-Formel?', answers: ['x = -p/2 ± √((p/2)² - q)', 'x = p ± q', 'x = √(p² - q²)', 'x = p/q'], correct: 0 },
+                    { question: 'Die Diskriminante ist...?', answers: ['Das Produkt der Koeffizienten', 'Der Ausdruck unter der Wurzel', 'Der Scheitelpunkt', 'Die Parabelöffnung'], correct: 1 },
+                    { question: 'Eine quadratische Funktion hat eine positive Diskriminante. Wie viele Nullstellen hat sie?', answers: ['Keine', 'Eine', 'Zwei', 'Drei'], correct: 2 },
+                    { question: 'Was ist die Symmetrieachse einer Parabel y = a(x - h)² + k?', answers: ['y = k', 'x = h', 'y = h', 'x = k'], correct: 1 },
+                    { question: 'Wie transformiert man y = x² zu y = (x + 3)²?', answers: ['3 Einheiten nach rechts', '3 Einheiten nach links', '3 Einheiten nach oben', '3 Einheiten nach unten'], correct: 1 },
+                    { question: 'Bei f(x) = 2(x - 1)² + 5 ist die minimale Höhe...?', answers: ['0', '1', '2', '5'], correct: 3 },
+                    { question: 'Welche Aussage ist wahr?', answers: ['Jede quadratische Funktion hat zwei verschiedene Nullstellen', 'Die Parabel y = x² - 1 hat keine Nullstellen', 'Die Parabel y = (x - 2)² + 1 berührt die x-Achse', 'Die Parabel y = -(x - 1)² ist nach unten geöffnet'], correct: 3 },
+                    { question: 'Der Parameter a bei y = ax² ist wichtig für...?', answers: ['Die Position der Nullstellen', 'Die Breite und Richtung der Parabel', 'Den y-Achsenabschnitt', 'Die Symmetrieachse'], correct: 1 },
+                    { question: 'Die Normalparabel ist...?', answers: ['y = 2x²', 'y = x²', 'y = x² + 1', 'y = (x - 1)²'], correct: 1 }
+                ],
+                'Lineare Funktionen': [
+                    { question: 'Was ist die allgemeine Form einer linearen Funktion?', answers: ['y = x²', 'y = mx + b', 'y = ax³', 'y = √x'], correct: 1 },
+                    { question: 'Was bedeutet m in der Funktion y = mx + b?', answers: ['Y-Achsenabschnitt', 'Steigung', 'X-Achsenabschnitt', 'Nullstelle'], correct: 1 },
+                    { question: 'Welche Steigung hat die Funktion y = 3x - 5?', answers: ['-5', '3', '-3', '5'], correct: 1 },
+                    { question: 'Eine Gerade mit der Steigung 0 ist...?', answers: ['Vertikal', 'Horizontal', 'Diagonal', 'Gebogen'], correct: 1 },
+                    { question: 'Der y-Achsenabschnitt der Funktion y = 2x + 7 ist...?', answers: ['2', '7', 'x', '-7'], correct: 1 },
+                    { question: 'Die Nullstelle von y = 2x - 4 ist...?', answers: ['2', '-2', '4', '-4'], correct: 0 },
+                    { question: 'Zwei parallele Geraden haben...?', answers: ['Dieselbe Steigung', 'Unterschiedliche Steigung', 'Keine Steigung', 'Negative Steigung'], correct: 0 },
+                    { question: 'Was ist eine Funktion mit negativer Steigung?', answers: ['Steigt nach rechts', 'Fällt nach rechts', 'Ist horizontal', 'Ist vertikal'], correct: 1 },
+                    { question: 'Die Gleichung y = mx + b wird auch genannt...?', answers: ['Quadratische Form', 'Lineare Form / Geradengleichung', 'Exponentielle Form', 'Rationale Form'], correct: 1 },
+                    { question: 'Wie berechnet man die Steigung aus zwei Punkten?', answers: ['m = Δy / Δx', 'm = Δx / Δy', 'm = x₁ + x₂', 'm = y₁ + y₂'], correct: 0 },
+                    { question: 'Zwei orthogonale Geraden erfüllen...?', answers: ['m₁ = m₂', 'm₁ · m₂ = -1', 'm₁ + m₂ = 0', 'm₁ > m₂'], correct: 1 },
+                    { question: 'Der Punkt-Steigung-Form ist...?', answers: ['y = mx + b', 'y - y₁ = m(x - x₁)', 'y = b', 'x = m'], correct: 1 },
+                    { question: 'Welche Funktion ist linear?', answers: ['y = x²', 'y = 2x + 3', 'y = 1/x', 'y = √x'], correct: 1 },
+                    { question: 'Wenn m < 0, dann ist die Gerade...?', answers: ['Steigend', 'Fallend', 'Horizontal', 'Undefiniert'], correct: 1 },
+                    { question: 'Die Gerade durch (0,0) und (2,4) hat die Steigung...?', answers: ['1', '2', '4', '-2'], correct: 1 }
+                ],
+                'Satz des Pythagoras': [
+                    { question: 'Der Satz des Pythagoras gilt für...?', answers: ['Alle Dreiecke', 'Rechtwinklige Dreiecke', 'Nur gleichseitige Dreiecke', 'Nur gleichschenklige Dreiecke'], correct: 1 },
+                    { question: 'Die Formel des Satzes des Pythagoras ist...?', answers: ['a + b = c', 'a² + b² = c²', 'a² - b² = c', 'a · b = c²'], correct: 1 },
+                    { question: 'In einem rechtwinkligen Dreieck ist c...?', answers: ['Eine Kathete', 'Die Hypotenuse', 'Der rechte Winkel', 'Der Scheitelpunkt'], correct: 1 },
+                    { question: 'Wenn a = 3 und b = 4, dann ist c...?', answers: ['5', '6', '7', '8'], correct: 0 },
+                    { question: 'Welche Seite ist die längste in einem rechtwinkligen Dreieck?', answers: ['Kathete a', 'Kathete b', 'Die Hypotenuse c', 'Alle gleich lang'], correct: 2 },
+                    { question: 'Der Satz des Pythagoras kann verwendet werden, um...?', answers: ['Den Flächeninhalt zu berechnen', 'Die Länge der Hypotenuse zu berechnen', 'Den Umfang zu berechnen', 'Den Winkel zu berechnen'], correct: 1 },
+                    { question: 'Wenn a = 5 und c = 13, dann ist b...?', answers: ['8', '9', '10', '12'], correct: 3 },
+                    { question: 'Das klassische Beispiel ist das 3-4-5 Dreieck. Wahr oder Falsch?', answers: ['Falsch', 'Wahr', 'Nur teilweise wahr', 'Nie wahr'], correct: 1 },
+                    { question: 'Der Pythagoras-Satz funktioniert auch für...?', answers: ['3D-Räume (mit drei Dimensionen)', 'Nur in 2D', 'Nur für Quadrate', 'Nie'], correct: 0 },
+                    { question: 'Wenn die Hypotenuse c = 10 und a = 6, dann ist b...?', answers: ['7', '8', 'Ca. 8', 'Nicht möglich'], correct: 2 },
+                    { question: 'Pythagoras war ein...?', answers: ['Mathematiker und Philosoph', 'Nur Mathematiker', 'Nur Philosoph', 'Künstler'], correct: 0 },
+                    { question: 'Das Tripel (5, 12, 13) erfüllt den Satz des Pythagoras...?', answers: ['Ja', 'Nein', 'Manchmal', 'Nicht überprüfbar'], correct: 0 },
+                    { question: 'Die Umkehrung des Satzes besagt...?', answers: ['Wenn a² + b² = c², dann ist das Dreieck rechtwinklig', 'Wenn ein Dreieck rechtwinklig ist, dann a² + b² = c²', 'Es gibt keine Umkehrung', 'Das Gegenteil ist wahr'], correct: 0 },
+                    { question: 'Welche Seitenlängen bilden KEIN rechtwinkliges Dreieck?', answers: ['3, 4, 5', '5, 12, 13', '8, 15, 17', '1, 2, 3'], correct: 3 },
+                    { question: 'Die Diagonale eines Quadrats mit Seitenlänge 1 ist...?', answers: ['1', '√2', '2', '√3'], correct: 1 }
+                ]
+            },
+            englisch: {
+                'Present Perfect': [
+                    { question: 'Das Present Perfect wird gebildet mit...?', answers: ['do + base form', 'have/has + past participle', 'will + base form', 'is + -ing'], correct: 1 },
+                    { question: 'Wähle den korrekten Satz:', answers: ['I have go to school', 'I have went to school', 'I have gone to school', 'I am going to school'], correct: 2 },
+                    { question: 'Das Present Perfect wird verwendet für...?', answers: ['Zukünftige Handlungen', 'Abgeschlossene Handlungen mit gegenwärtiger Relevanz', 'Nur Vergangenheit', 'Nur Gegenwart'], correct: 1 },
+                    { question: 'Ever bedeutet im Present Perfect...?', answers: ['Manchmal', 'Je', 'Immer', 'Nie'], correct: 1 },
+                    { question: 'Welcher Satz ist grammatikalisch korrekt?', answers: ['She have finished her work', 'She has finishes her work', 'She has finished her work', 'She finished her work yet'], correct: 2 },
+                    { question: 'Just bedeutet...?', answers: ['Gerecht', 'Gerade eben / gerade noch', 'Immer', 'Noch nicht'], correct: 1 },
+                    { question: 'Das Present Perfect mit "already" bedeutet...?', answers: ['Noch nicht erledigt', 'Bereits erledigt', 'Wird bald erledigt', 'Wurde gestern erledigt'], correct: 1 },
+                    { question: 'Wähle den richtigen Satz:', answers: ['I have seen this movie before', 'I am seeing this movie before', 'I see this movie before', 'I have saw this movie before'], correct: 0 },
+                    { question: 'Das Present Perfect wird oft benutzt mit...?', answers: ['Tomorrow', 'Recently, yet, already, ever', 'Yesterday', 'Last week'], correct: 1 },
+                    { question: 'Yet wird benutzt in...?', answers: ['Positiven Aussagen', 'Fragen und negativen Aussagen', 'Nur Befehlen', 'Nur bei Verben'], correct: 1 },
+                    { question: 'Wie bildet man das Present Perfect für "I"?', answers: ['I has', 'I have', 'I is having', 'I be having'], correct: 1 },
+                    { question: 'Welches Wort zeigt aktuelle Relevanz an?', answers: ['Never', 'Just', 'Tomorrow', 'Yesterday'], correct: 1 },
+                    { question: 'Das Past Participle von "see" ist...?', answers: ['See', 'Saw', 'Seen', 'Seeing'], correct: 2 },
+                    { question: 'Since wird in Present Perfect verwendet für...?', answers: ['Einen Punkt in der Vergangenheit', 'Die Zukunft', 'Nur Negationen', 'Fragen'], correct: 0 },
+                    { question: 'Richtig oder falsch: "I have gone to Paris three times" ist korrekt.', answers: ['Falsch', 'Wahr', 'Teilweise wahr', 'Irrelevant'], correct: 1 }
+                ],
+                'Schreiben': [
+                    { question: 'Ein formeller Brief beginnt mit...?', answers: ['Hi', 'Dear Sir/Madam,', 'Hey there', 'Yo'], correct: 1 },
+                    { question: 'Das Fazit einer Schreibaufgabe sollte...?', answers: ['Neue Informationen einführen', 'Die Hauptpunkte zusammenfassen', 'Fragen stellen', 'Zu lang sein'], correct: 1 },
+                    { question: 'Welche Satzverbindung ist passend?', answers: ['because - bevor', 'because - weil', 'when - was', 'until - wenn'], correct: 1 },
+                    { question: 'Ein Absatz sollte mindestens...?', answers: ['10 Sätze haben', 'Ein Thema behandeln', '100 Wörter sein', 'Immer 5 Sätze sein'], correct: 1 },
+                    { question: 'Das Topic Sentence steht normalerweise...?', answers: ['Am Ende des Absatzes', 'In der Mitte', 'Am Anfang', 'Überall verteilt'], correct: 2 },
+                    { question: 'Welches Wort nutzt man, um Ideen zu verbinden?', answers: ['splendid', 'therefore', 'color', 'run'], correct: 1 },
+                    { question: 'Ein guter Text hat...?', answers: ['Keine Struktur', 'Einleitung, Hauptteil, Schluss', 'Nur einen Absatz', 'Zufällige Reihenfolge'], correct: 1 },
+                    { question: 'Pronomen helfen dabei, den Text...?', answers: ['Länger zu machen', 'Zu wiederholen', 'Kohärent und fließend zu machen', 'Schwieriger zu verstehen'], correct: 2 },
+                    { question: 'Welcher Satz ist besser geschrieben?', answers: ['The boy was big', 'The towering boy stood tall', 'The boy ist big', 'Big the boy was'], correct: 1 },
+                    { question: 'Ein Essay benötigt...?', answers: ['Keine Struktur', 'Klare These und Argumentation', 'Nur Fragen', 'Keine Schlussfolgerung'], correct: 1 },
+                    { question: 'Welches ist kein Strukturwort?', answers: ['However', 'Furthermore', 'Therefore', 'Beautiful'], correct: 3 },
+                    { question: 'Ein formales Schreiben endet mit...?', answers: ['CU later', 'Yours sincerely,', 'Bye', 'See you!'], correct: 1 },
+                    { question: 'Beschreibende Wörter nennt man...?', answers: ['Verben', 'Adjektive', 'Präpositionen', 'Konjunktionen'], correct: 1 },
+                    { question: 'Welcher Text ist besser organisiert?', answers: ['Alle Ideen vermischt', 'Jeder Absatz mit klarem Fokus', 'Keine Überschriften', 'Sehr kurze Sätze'], correct: 1 },
+                    { question: 'Brainstorming vor dem Schreiben hilft...?', answers: ['Nicht viel', 'Organisierte Gedanken zu sammeln', 'Den Text zu verlängern', 'Den Text zu verkürzen'], correct: 1 }
+                ],
+                'Grammatik': [
+                    { question: 'Die drei Zeiten sind...?', answers: ['Present, Past, Future', 'Simple, Perfect, Continuous', 'Alle Kombinationen von Simple/Perfect/Continuous', 'Past, Present, Conditional'], correct: 2 },
+                    { question: 'Ein Nominativ ist ein...?', answers: ['Adverb', 'Substantiv/Nomen', 'Verb', 'Adjektiv'], correct: 1 },
+                    { question: 'Welcher Satz hat die richtige Wortstellung?', answers: ['I like very much chocolate', 'I like chocolate very much', 'Chocolate I like very much', 'Very much I like chocolate'], correct: 1 },
+                    { question: 'Der Plural von "child" ist...?', answers: ['childs', 'children', 'childes', 'childer'], correct: 1 },
+                    { question: 'A/An wird verwendet vor...?', answers: ['Plural-Wörtern', 'Wörtern mit Konsonantenlaut', 'Wörtern mit Vokallaut (für "an")', 'Nur Verben'], correct: 2 },
+                    { question: 'Welcher Satz ist grammatikalisch korrekt?', answers: ['She don\'t like coffee', 'She doesn\'t like coffee', 'She do not likes coffee', 'She not likes coffee'], correct: 1 },
+                    { question: 'Possessivpronomen sind...?', answers: ['he, she, it', 'my, your, his, her', 'this, that, these', 'big, small, nice'], correct: 1 },
+                    { question: 'Ein Präteritum ist...?', answers: ['Die Gegenwart', 'Die Vergangenheit', 'Die Zukunft', 'Ein Adjektiv'], correct: 1 },
+                    { question: 'Die Satzreihenfolge in Fragen ist...?', answers: ['Normal', 'Verb + Subject + Rest', 'Sehr zufällig', 'Immer am Ende'], correct: 1 },
+                    { question: 'Das Präfix "un-" bedeutet...?', answers: ['Eins', 'Nicht/Gegen', 'Unter', 'Über'], correct: 1 },
+                    { question: 'Welcher Satz nutzt das conditional?', answers: ['I go to the party', 'I would go to the party if I could', 'I have gone to the party', 'I am going to the party'], correct: 1 },
+                    { question: 'Ein Gerundium endet auf...?', answers: ['er', 'ing', 'ed', 'ly'], correct: 1 },
+                    { question: 'Der Superlativ wird gebildet durch...?', answers: ['more + adjektiv', 'the most + adjektiv', 'adjektiv + er', 'adjektiv + ly'], correct: 1 },
+                    { question: 'Welches Wort ist ein Adverb?', answers: ['beautiful', 'quickly', 'happy', 'run'], correct: 1 },
+                    { question: 'Das passive voice wird mit...?', answers: ['do + verb', 'be + past participle', 'have + verb', 'will + base form'], correct: 1 }
+                ],
+                'Past Participle': [
+                    { question: 'Das Past Participle von "go" ist...?', answers: ['go', 'goes', 'going', 'gone'], correct: 3 },
+                    { question: 'Das Past Participle von "eat" ist...?', answers: ['eated', 'eat', 'eaten', 'eats'], correct: 2 },
+                    { question: 'Das Past Participle wird verwendet für...?', answers: ['Present Tense', 'Perfect Forms und Passive Voice', 'Nur Adjektive', 'Future Tense'], correct: 1 },
+                    { question: 'Das Past Participle von "have" ist...?', answers: ['have', 'haved', 'having', 'had'], correct: 3 },
+                    { question: 'Welches Past Participle ist korrekt?', answers: ['writed', 'written', 'write', 'writes'], correct: 1 },
+                    { question: 'Das Past Participle von "see" ist...?', answers: ['seeing', 'see', 'saw', 'seen'], correct: 3 },
+                    { question: 'Im Passive Voice steht das Past Participle nach...?', answers: ['have', 'be', 'do', 'will'], correct: 1 },
+                    { question: 'Das Past Participle von "break" ist...?', answers: ['break', 'braked', 'broken', 'breaks'], correct: 2 },
+                    { question: 'Welcher Satz nutzt Past Participle korrekt?', answers: ['I am writing a letter', 'I have written a letter', 'I write a letter', 'I written a letter'], correct: 1 },
+                    { question: 'Das Past Participle von "do" ist...?', answers: ['do', 'does', 'done', 'doing'], correct: 2 },
+                    { question: 'Das Past Participle ist immer gleich beim...?', answers: ['Present Simple', 'Irregular Verb', 'Regular Verb', 'Verb am Anfang'], correct: 2 },
+                    { question: 'Das Past Participle von "buy" ist...?', answers: ['buy', 'buyed', 'bought', 'buying'], correct: 2 },
+                    { question: 'Wie heißt die Form: have + Past Participle?', answers: ['Simple Past', 'Present Perfect', 'Past Continuous', 'Future Simple'], correct: 1 },
+                    { question: 'Das Past Participle von "know" ist...?', answers: ['know', 'knew', 'known', 'knowing'], correct: 2 },
+                    { question: 'Im Satz "The cake was eaten by John" ist "eaten"...?', answers: ['Simple Past', 'Past Participle (Passive Voice)', 'Present Participle', 'Infinitive'], correct: 1 }
+                ]
+            },
+            geschichte: {
+                'Weimarer Republik': [
+                    { question: 'Die Weimarer Republik wurde gegründet in...?', answers: ['1918', '1919', '1920', '1923'], correct: 1 },
+                    { question: 'Wer war der erste Präsident der Weimarer Republik?', answers: ['Friedrich Ebert', 'Paul von Hindenburg', 'Max Weber', 'Philipp Scheidemann'], correct: 0 },
+                    { question: 'Die Verfassung der Weimarer Republik hieß...?', answers: ['Berliner Vertrag', 'Weimarer Verfassung', 'Reichsverfassung', 'Reichstag-Akte'], correct: 2 },
+                    { question: 'Das Kapp-Putsch fand statt in...?', answers: ['1920', '1921', '1922', '1923'], correct: 0 },
+                    { question: 'Welcher Vertrag war für Deutschland die Hauptbelastung in der Weimarer Republik?', answers: ['Vertrag von Brest-Litowsk', 'Vertrag von Versailles', 'Verträge von Locarno', 'Kellogg-Pakt'], correct: 1 },
+                    { question: 'Die Hyperinflation in Deutschland erreichte ihren Höhepunkt in...?', answers: ['1920', '1921', '1923', '1925'], correct: 2 },
+                    { question: 'Wer wurde 1922 Außenminister der Weimarer Republik?', answers: ['Helmuth Brüning', 'Walther Rathenau', 'Karl Radek', 'Otto Braun'], correct: 1 },
+                    { question: 'Die Rentenmark wurde 1923 eingeführt, um...?', answers: ['Die Hyperinflation zu stoppen', 'Die Kriegsschuld zu bezahlen', 'Der Besatzung zu widersprechen', 'Die Reparationen zu erhöhen'], correct: 0 },
+                    { question: 'Der Dawes-Plan von 1924 war...?', answers: ['Ein Kriegsplan Deutschlands', 'Ein Plan zur Regelung der Reparationen', 'Ein Militärbündnis', 'Ein Handelsvertrag'], correct: 1 },
+                    { question: 'Die Weimarer Republik hatte...?', answers: ['Ein Zwei-Kammer-System', 'Ein Drei-Kammer-System', 'Ein Ein-Kammer-System (Reichstag)', 'Kein Parlamentssystem'], correct: 2 },
+                    { question: 'In der Weimarer Republik gab es...?', answers: ['Nur zwei Parteien', 'Viele Parteien (fragmentiertes System)', 'Nur eine Partei', 'Keine Parteien'], correct: 1 },
+                    { question: 'Der Vertrag von Locarno (1925) betraf...?', answers: ['Deutschlands Grenzen zu Frankreich und Belgien', 'Deutschlands Grenzen zu Polen', 'Die Abschaffung der Reparationen', 'Den Bund mit Österreich'], correct: 0 },
+                    { question: 'Die Notverordnungen nach Artikel 48 der Weimarer Verfassung...?', answers: ['Stärkten die Demokratie', 'Ermöglichten es dem Präsidenten, ohne Parlament zu regieren', 'Wurden selten genutzt', 'Schützten die Bürgerrechte'], correct: 1 },
+                    { question: 'Welche Partei war in der Weimarer Republik am stärksten vertreten?', answers: ['NSDAP', 'KPD', 'SPD', 'Zentrum'], correct: 2 },
+                    { question: 'Die Weimarer Republik endete in...?', answers: ['1933', '1934', '1935', '1939'], correct: 0 }
+                ],
+                'Goldenen 20er': [
+                    { question: 'Die "Goldenen Zwanziger" waren eine Periode von...?', answers: ['1920-1925', '1924-1929', '1925-1930', '1919-1924'], correct: 1 },
+                    { question: 'Was kennzeichnete die Kultur der "Goldenen Zwanziger"?', answers: ['Konservativismus', 'Avantgarde, Jazz und moderne Kunst', 'Puritanismus', 'Militarismus'], correct: 1 },
+                    { question: 'Die Künstlergruppe "Die Brücke" war aktiv in...?', answers: ['Den 1890ern-1910ern', 'Den 1920ern-1930ern', 'Den 1940ern', 'Nach dem 2. Weltkrieg'], correct: 0 },
+                    { question: 'Welcher berühmte Komponist war in den Goldenen Zwanzigern aktiv?', answers: ['Beethoven', 'Richard Strauss', 'Arnold Schönberg', 'Mozart'], correct: 2 },
+                    { question: 'Die Bauhaus-Schule wurde gegründet in...?', answers: ['1900', '1919', '1925', '1930'], correct: 1 },
+                    { question: 'Die "Neue Sachlichkeit" war eine künstlerische Bewegung, die...?', answers: ['Sich von der Realität abwandte', 'Die Realität nüchtern abbildete', 'Nur abstrak war', 'Nur religiös war'], correct: 1 },
+                    { question: 'Welche Stadt war das kulturelle Zentrum der Goldenen Zwanziger?', answers: ['München', 'Berlin', 'Hamburg', 'Frankfurt'], correct: 1 },
+                    { question: 'Das Kino erlebte in den Goldenen Zwanzigern...?', answers: ['Seinen Niedergang', 'Seine Blütezeit', 'Keine Veränderung', 'Nur Stummfilme'], correct: 1 },
+                    { question: 'Welcher berühmte Regisseur machte Filme in dieser Zeit?', answers: ['Leni Riefenstahl (später)', 'F.W. Murnau', 'Steven Spielberg', 'George Méliès'], correct: 1 },
+                    { question: 'Die Literatur der Goldenen Zwanziger war geprägt durch...?', answers: ['Romantik', 'Expressionismus und Neue Sachlichkeit', 'Naturalismus', 'Realismus'], correct: 1 },
+                    { question: 'Welche Künstlerbewegung war anti-künstlerisch und provokativ?', answers: ['Impressionismus', 'Dadaismus', 'Kubismus', 'Symbolismus'], correct: 1 },
+                    { question: 'Die Mode der Goldenen Zwanziger war geprägt durch...?', answers: ['Viktorianischen Stil', 'Kurze Röcke und knappe Kleider', 'Sehr lange Röcke', 'Militäruniformen'], correct: 1 },
+                    { question: 'Was waren "Flappers"?', answers: ['Fische', 'Junge Frauen mit modernem Stil', 'Flugzeuge', 'Musikinstrumente'], correct: 1 },
+                    { question: 'Welche Kunstform war besonders in den Goldenen Zwanzigern beliebt?', answers: ['Klassische Malerei', 'Jazz und moderne Musik', 'Symphonische Klassik', 'Nur Opern'], correct: 1 },
+                    { question: 'Die Goldenen Zwanziger endeten mit...?', answers: ['Beginn des 2. WK', 'Finanzielle Stabilität', 'Der Weltwirtschaftskrise 1929', 'Kultureller Stagnation'], correct: 2 }
+                ],
+                '1. Weltkrieg': [
+                    { question: 'Der 1. Weltkrieg begann in...?', answers: ['1913', '1914', '1915', '1916'], correct: 1 },
+                    { question: 'Der Auslöser des 1. WK war...?', answers: ['Die Annexion Belgiens', 'Das Attentat auf Franz Ferdinand', 'Die Invasion Frankreichs', 'Die Sinking der Lusitania'], correct: 1 },
+                    { question: 'Welche Allianz war Deutschland 1914 angehörig?', answers: ['Entente Cordiale', 'Dreibund (Österreich, Italien, Deutschland)', 'Vierer-Allianz', 'Neutral'], correct: 1 },
+                    { question: 'Der 1. Weltkrieg war ein...?', answers: ['Bewegungskrieg', 'Stellungskrieg (besonders an der Westfront)', 'Guerilla-Krieg', 'Nur Seekrieg'], correct: 1 },
+                    { question: 'Die Schlacht an der Somme 1916 war...?', answers: ['Ein deutscher Sieg', 'Bekannt für ihre immensen Verluste', 'Ein italienischer Erfolg', 'Nur eine kleine Scharmützel'], correct: 1 },
+                    { question: 'Der uneingeschränkte U-Boot-Krieg
